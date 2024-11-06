@@ -1,0 +1,92 @@
+[------3------]
+1. Create the Table and Insert Data
+First, create the Employee table with the provided columns:
+sql
+Copy code
+CREATE TABLE Employee (
+    Eid INT PRIMARY KEY,
+    Ename VARCHAR(50),
+    Address VARCHAR(50),
+    Salary DECIMAL(10, 2),
+    Commision DECIMAL(10, 2)
+);
+
+INSERT INTO Employee (Eid, Ename, Address, Salary, Commision) VALUES
+(1, 'Amita', 'Pune', 35000, 5000),
+(2, 'Neha', 'Pune', 25000, NULL),
+(3, 'Sagar', 'Nasik', 28000, 2000),
+(4, 'Sneha', 'Mumbai', 19000, NULL),
+(5, 'Shubham', 'Mumbai', 25000, 3000);
+Create the PrNo table with the Addr column as shown:
+sql
+Copy code
+CREATE TABLE PrNo (
+    PrNo INT PRIMARY KEY,
+    Addr VARCHAR(50)
+);
+
+INSERT INTO PrNo (PrNo, Addr) VALUES
+(10, 'Mumbai'),
+(20, 'Pune'),
+(30, 'Jalgaon');
+Queries
+1.	Find Different Locations from Where Employees Belong
+sql
+Copy code
+SELECT DISTINCT Address AS Location
+FROM Employee;
+2.	What is the Maximum and Minimum Salary?
+sql
+Copy code
+SELECT MAX(Salary) AS max_salary, MIN(Salary) AS min_salary
+FROM Employee;
+3.	Display the Content of Employee Table in Ascending Order of Salary
+sql
+Copy code
+SELECT * FROM Employee
+ORDER BY Salary ASC;
+4.	Find the Name of Employees Who Live in Nasik or Pune
+sql
+Copy code
+SELECT Ename
+FROM Employee
+WHERE Address IN ('Nasik', 'Pune');
+5.	Find the Name of Employees Who Do Not Get Commission
+sql
+Copy code
+SELECT Ename
+FROM Employee
+WHERE Commision IS NULL;
+6.	Change the City of Amita to Nasik
+sql
+Copy code
+UPDATE Employee
+SET Address = 'Nasik'
+WHERE Ename = 'Amita';
+7.	Find Information of Employees Whose Name Starts with 'A'
+sql
+Copy code
+SELECT * FROM Employee
+WHERE Ename LIKE 'A%';
+8.	Find the Count of Staff from Each City
+sql
+Copy code
+SELECT Address, COUNT(*) AS staff_count
+FROM Employee
+GROUP BY Address;
+9.	Find City-Wise Minimum Salary
+sql
+Copy code
+SELECT Address, MIN(Salary) AS min_salary
+FROM Employee
+GROUP BY Address;
+10.	Find City-Wise Maximum Salary Where Maximum Salary is Greater Than 26000
+sql
+Copy code
+SELECT Address, MAX(Salary) AS max_salary
+FROM Employee
+GROUP BY Address
+HAVING MAX(Salary) > 26000;
+Each query above addresses a specific requirement for extracting, updating, and analyzing data within the Employee table based on various conditions.
+4o
+

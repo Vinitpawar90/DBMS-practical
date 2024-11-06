@@ -1,0 +1,87 @@
+[-----2----]
+1. Create the Table and Insert Data
+First, create the Employee table with the given columns:
+sql
+Copy code
+CREATE TABLE Employee (
+    employee_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    department VARCHAR(50),
+    salary DECIMAL(10, 2),
+    hire_date DATE,
+    position VARCHAR(100)
+);
+
+INSERT INTO Employee (employee_id, first_name, last_name, department, salary, hire_date, position) VALUES
+(1, 'John', 'Doe', 'IT', 60000, '2021-05-15', 'Software Engineer'),
+(2, 'Jane', 'Smith', 'HR', 55000, '2020-03-10', 'HR Specialist'),
+(3, 'Alex', 'Johnson', 'IT', 70000, '2019-09-22', 'DevOps Engineer'),
+(4, 'Emily', 'Davis', 'Finance', 80000, '2021-02-18', 'Analyst'),
+(5, 'David', 'Duck', 'IT', 40000, '2020-06-05', 'Software Engineer'),
+(6, 'Don', 'Dev', 'Finance', 90000, '2019-08-03', 'Developer');
+2. Select All Data from the Employee Table
+sql
+Copy code
+SELECT * FROM Employee;
+3. Select Employees in the Specific Department of IT
+sql
+Copy code
+SELECT * FROM Employee
+WHERE department = 'IT';
+4. Count the Number of Employees in Each Department
+sql
+Copy code
+SELECT department, COUNT(*) AS employee_count
+FROM Employee
+GROUP BY department;
+5. Find the Average Salary in Each Department
+sql
+Copy code
+SELECT department, AVG(salary) AS average_salary
+FROM Employee
+GROUP BY department;
+6. List Employees Hired After 1 February 2021
+sql
+Copy code
+SELECT * FROM Employee
+WHERE hire_date > '2021-02-01';
+7. Increase the Salary of Employees in the IT Department by 5000
+sql
+Copy code
+UPDATE Employee
+SET salary = salary + 5000
+WHERE department = 'IT';
+8. Find the Highest Salary in Each Department
+sql
+Copy code
+SELECT department, MAX(salary) AS highest_salary
+FROM Employee
+GROUP BY department;
+9. Count the Number of Employees in Each Department with More Than 1 Employee
+sql
+Copy code
+SELECT department, COUNT(*) AS employee_count
+FROM Employee
+GROUP BY department
+HAVING COUNT(*) > 1;
+10. Find the Employee with the Highest and Lowest Salary
+•	Highest Salary:
+sql
+Copy code
+SELECT * FROM Employee
+ORDER BY salary DESC
+LIMIT 1;
+•	Lowest Salary:
+sql
+Copy code
+SELECT * FROM Employee
+ORDER BY salary ASC
+LIMIT 1;
+11. Delete an Employee Record with Last Name Dev
+sql
+Copy code
+DELETE FROM Employee
+WHERE last_name = 'Dev';
+Each query above corresponds to a specific requirement for managing and analyzing data within the Employee table.
+

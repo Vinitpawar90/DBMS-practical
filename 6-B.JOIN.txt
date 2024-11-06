@@ -1,0 +1,59 @@
+6[ii]
+Here's how you would perform all types of joins (Inner, Left, Right, and Full Outer) and create views on the Student and Course tables.
+Create the Tables
+1.	Student Table:
+sql
+Copy code
+CREATE TABLE Student (
+    StudentID INT PRIMARY KEY,
+    StudentName VARCHAR(50),
+    CourseID INT
+);
+
+INSERT INTO Student (StudentID, StudentName, CourseID) VALUES
+(1, 'Amita', 101),
+(2, 'Neha', 102),
+(3, 'Sagar', 103),
+(4, 'Sneha', 106),
+(5, 'Shubham', 105);
+2.	Course Table:
+sql
+Copy code
+CREATE TABLE Course (
+    CourseID INT PRIMARY KEY,
+    CourseName VARCHAR(50)
+);
+
+INSERT INTO Course (CourseID, CourseName) VALUES
+(101, 'Physics'),
+(102, 'Chemistry'),
+(104, 'Biology');
+1. Perform All Types of Joins
+•	Inner Join: 
+Copy code
+
+SELECT * FROM student INNER JOIN Course ON student.CourseID=Course.CourseID;
+
+
+•	Left Join: 
+Copy code
+ SELECT * FROM student LEFT JOIN Course ON student.CourseID=Course.CourseID;
+
+
+•	Right Join: 
+Copy code
+SELECT * FROM student RIGHT JOIN Course ON student.CourseID=Course.CourseID;
+
+
+•	Full Outer Join:
+Copy code
+SELECT * FROM student LEFT JOIN Course ON student.CourseID=Course.CourseID union SELECT * FROM student RIGHT JOIN Course ON student.CourseID=Course.CourseID;
+
+
+
+2. Create and Display Different Views
+VEIWS:-
+
+ CREATE VIEW vv AS SELECT StudentName FROM student;
+
+select * from vv;

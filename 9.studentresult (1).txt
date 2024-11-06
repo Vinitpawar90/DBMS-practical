@@ -1,0 +1,60 @@
+Delimiter // 
+ 
+CREATE PROCEDURE  grade(IN newroll Integer) 
+ 
+   BEGIN 
+    DECLARE tmarks INTEGER; 
+    DECLARE sname varchar(25); 
+    DECLARE sresult varchar(25); 
+ 
+    DECLARE EXIT HANDLER FOR NOT FOUND 
+   BEGIN 
+    SELECT CONCAT('ROLLNO ', newroll, ' NOT FOUND') as NoRecord; 
+   END; 
+    SELECT Name, total_marks INTO sname, tmarks 
+    FROM studmarks  
+    WHERE roll = newroll; 
+SET sresult = funcclass(tmarks); 
+INSERT INTO result values(newroll,sname,sresult); 
+END; 
+// 
+delimiter ;
+
+
+
+
+
+
+
+
+Delimiter //
+CREATE FUNCTION funcclass(Marks Integer)
+RETURNS varchar(25) NO SQL
+BEGIN
+DECLARE S_result varchar(25);
+IF (Marks>=990 AND Marks<=1500) then
+SET S_result = 'DISTINCTION';
+ELSEIF (Marks>=900 AND Marks<=989) THEN
+SET S_result = 'FIRST CLASS';
+ELSEIF (Marks>=825 AND Marks<=899) THEN
+SET S_result = 'HIGHER SECOND CLASS';
+ELSE
+SET S_result = 'PASS CLASS';
+END IF;
+RETURN S_result;
+END;
+//
+Delimiter ;
+
+
+
+
+ create database stud;
+use stud;
+ create table studmarks(roll int,name varchar(10),total_marks int);
+create table result(roll int,name varchar(10),class varchar(25));
+ source std2.sql
+source std.sql
+insert into studmarks values(1,"roshan",100);
+ call grade(1);
+ select*from result;

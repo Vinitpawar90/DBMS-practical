@@ -1,0 +1,43 @@
+create database dbms_part2;
+use dbms_part2;
+
+create table if not exists student(rollno int primary key,name varchar(20) not null);
+insert into student values(1,"piyush"),(2,"prasad"),(3,"sanket"),(4,"atharva"),(5,"kashish");
+
+create table if not exists new_student(rollno int primary key,name varchar(20) not null);
+
+
+drop procedure merge_stud;
+delimiter //
+
+create procedure merge_stud(roll int)
+begin
+declare s_roll int;
+declare row_count int default 0;
+declare terminate boolean default false;
+
+declare x cursor for select rollno from student where rollno=roll;
+
+declare continue handler for not found set terminate=true;
+
+open x;
+get_students:loop
+fetch x into s_roll;
+if not exists (select*from new_student where rollno=s_roll) then
+insert into new_student select*from student where rollno=s_roll;
+set row_count=row_count+1;
+end if;
+
+if terminate=true then
+leave get_students;
+end if;
+
+end loop get_students;
+
+select concat("record merged ",row_count," rows merged") as message;
+end;
+
+// delimiter ;
+
+call merge_stud(4);
+select* from new_student;
